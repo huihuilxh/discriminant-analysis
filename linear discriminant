@@ -1,0 +1,21 @@
+## 线性判别 ##
+data=read.csv("exam1.csv")
+print(data)
+
+plot(data$x1, data$x2)
+text(data$x1, data$x2, data$ind, adj=-0.8)
+
+library(MASS)
+ldist=lda(ind~x1+x2+x3+x4+x5+x6+x7, data=data)
+print(ldist)
+
+pre.ldist=predict(ldist)
+new.ind=pre.ldist$class
+
+data.ldist=cbind(data,new.ind)
+print(data.ldist)
+
+ind=data.ldist$ind
+new.ind=data.ldist$new.ind
+tab=table(ind, new.ind)
+sum(diag(prop.table(tab)))
